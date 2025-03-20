@@ -5,6 +5,8 @@ require_relative '../config/environment'
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'rspec/rails'
+require 'factory_bot_rails'  # Adicionado para carregar o FactoryBot
+
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -29,6 +31,7 @@ begin
 rescue ActiveRecord::PendingMigrationError => e
   abort e.to_s.strip
 end
+
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_paths = [
@@ -57,6 +60,10 @@ RSpec.configure do |config|
   # The different available types are documented in the features, such as in
   # https://rspec.info/features/6-0/rspec-rails
   config.infer_spec_type_from_file_location!
+
+  # Include FactoryBot methods (create, build, etc.) directly in the specs
+  config.include FactoryBot::Syntax::Methods  # Adicionando o FactoryBot para usar métodos como `create`
+    # Carregar as fábricas automaticamente
 
   # Filter lines from Rails gems in backtraces.
   config.filter_rails_from_backtrace!
